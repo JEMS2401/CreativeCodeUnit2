@@ -8,6 +8,10 @@ function setup()
   noStroke()
   windowTitle("Matthew Melican HW 7")
   describe('AAAAAAAAAAAA')
+  for i = 1, 10, 1 do
+    fill(random(100),random(100,255),random(100,255))
+    ellipse(random(100,500),random(100,300),50,50)
+  end
 end
 
 function draw()
@@ -33,6 +37,14 @@ end
 
 TriangleRotation = TriangleRotation + 0.5
 
-for RandomElipses
+end
+
+function mousePressed()
+  background(255,200)
+  for i = 1, 10, 1 do
+    fill(random(100),random(100,255),random(100,255))
+    ellipse(random(0,800),random(400,600),random(20, 50),random(20, 50))
+    ellipse(random(600,800),random(0,600),random(20, 50),random(20, 50))
+  end
 
 end

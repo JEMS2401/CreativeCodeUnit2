@@ -8,7 +8,7 @@
 require("L5")
 
 function setup()
-  size(600, 400)
+  size(800, 600)
   noStroke()
   windowTitle("For Loop 1")
   describe('White screen with green and blue circles')
@@ -37,6 +37,7 @@ function mousePressed()
   background(255,200)
   for i = 1, 10, 1 do
     fill(random(100),random(100,255),random(100,255))
-    ellipse(random(100,500),random(100,300),50,50)
+    ellipse(random(0,800),random(400,600),random(20, 50),random(20, 50))
+    ellipse(random(600,800),random(0,600),random(20, 50),random(20, 50))
   end
 end
