@@ -18,7 +18,7 @@ function setup()
   angleMode(DEGREES)
   noStroke()
   windowTitle("Matthew Melican HW 7")
-  describe('I dont know how to slow the randomness down its way too fast but like I have midterms to prepare for so uh if it aint broke')
+  describe('Thank you Ben H for helping me with the code you are very awesome :)')
 end
 
 function draw()
