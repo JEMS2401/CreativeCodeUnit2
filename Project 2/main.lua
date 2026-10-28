@@ -27,7 +27,10 @@ LeftBoxIconWidth = 700*.3
 MidBoxIconWidth = 700*.5
 RightBoxIconWidth = 700*.7
 
-IconOutput = {TestCircleImage,TestSquareImage,TestCircleImage2,TestSquareImage2}
+--Checking if the Roulette has been Chosen
+LeftBoxCheck = 0
+MidBoxCheck = 0
+RightBoxCheck = 0
 
 function setup()
   size(700, 500)
@@ -42,8 +45,19 @@ function setup()
   TestCircleImage2 = loadImage('assets/TestCircleImage2.png')
   TestSquareImage2 = loadImage('assets/TestSquareImage2.png')
 
+  --Left1Star = loadImage('assets/TestCircleImage1.png')
+  --Right2Star = loadImage('assets/TestSquareImage1.png')
+  --Left30Coin = loadImage('assets/TestCircleImage2.png')
+  --Right10Coin = loadImage('assets/TestSquareImage2.png')
+
+  --Image Array for Random Generation
+IconOutput = {TestCircleImage,TestSquareImage,TestCircleImage2,TestSquareImage2}
+--SpecialMidIconOutput = {Left1Star,Right2Star,Left30Coin,Right10Coin}
+
   --Output of the Roulette for Random Generation
 LeftCurrentOutput = TestCircleImage
+MidCurrentOutput = TestCircleImage
+RightCurrentOutput = TestCircleImage
 end
 
 function draw()
@@ -92,10 +106,10 @@ TestSquare2Y = TestSquare2Y + RouletteSpeed
     TestSquare2Y = -100
   end
 
---Big Icon Image When Keys are Pressed. How do I make this an Array?
+--Big Icon Image When Keys are Pressed.
 image(LeftCurrentOutput,width*.247,LeftIconHeight,75, width*0.1)
-image(TestCircleImage2,width*.447,MidIconHeight,75, width*0.1)
-image(TestSquareImage,width*.647,RightIconHeight,75, width*0.1)
+image(MidCurrentOutput,width*.447,MidIconHeight,75, width*0.1)
+image(RightCurrentOutput,width*.647,RightIconHeight,75, width*0.1)
 
 --Sky Color. I have to form boxes to leave background room for the roulette to work.
 fill(135, 206, 235)
@@ -193,9 +207,16 @@ LeftIconHeight = height*0.33
 LeftBoxIconWidth = 0
 --The Arrow Icon turns transparent.
 LeftArrowOpacity = 0
+--Left Box Check Set to 0
+LeftBoxCheck = 1
+--Generate the Output of the Specific Box!
+LeftCurrentOutput = random(IconOutput)
 
+--Reroll if Right was the same as Left
+if RightBoxCheck == 1 and LeftCurrentOutput == RightCurrentOutput then
 LeftCurrentOutput = random(IconOutput)
     else
+end
 end
 
 if key == "up" then
@@ -206,6 +227,10 @@ MidIconHeight = height*0.33
 MidBoxIconWidth = 0
 
 MidArrowOpacity = 0
+
+MidBoxCheck = 1
+
+MidCurrentOutput = random(IconOutput)
     else
 end
 
@@ -217,6 +242,14 @@ RightIconHeight = height*0.33
 RightBoxIconWidth = 0
 
 RightArrowOpacity = 0
+
+RightBoxCheck = 1
+
+RightCurrentOutput = random(IconOutput)
+
+if LeftBoxCheck == 1 and LeftCurrentOutput == RightCurrentOutput then
+RightCurrentOutput = random(IconOutput)
     else
+end
 end
 end
