@@ -27,7 +27,17 @@ LeftBoxIconWidth = 700*.3
 MidBoxIconWidth = 700*.5
 RightBoxIconWidth = 700*.7
 
-IconOutput = {TestCircleImage,TestSquareImage,TestCircleImage2,TestSquareImage2}
+--Checking if the Roulette has been Chosen
+LeftBoxCheck = 0
+MidBoxCheck = 0
+RightBoxCheck = 0
+
+--Left and Right Winners
+LeftPlayerStars = 0
+LeftPlayerCoins = 0
+
+RightPlayerStars = 0
+RightPlayerCoins = 0
 
 function setup()
   size(700, 500)
@@ -42,8 +52,41 @@ function setup()
   TestCircleImage2 = loadImage('assets/TestCircleImage2.png')
   TestSquareImage2 = loadImage('assets/TestSquareImage2.png')
 
+  --Left1Star = loadImage('assets/TestCircleImage1.png')
+  --Right2Star = loadImage('assets/TestSquareImage1.png')
+  --Left30Coin = loadImage('assets/TestCircleImage2.png')
+  --Right10Coin = loadImage('assets/TestSquareImage2.png')
+
+  --Image Array for Random Generation
+IconOutput = {TestCircleImage,TestSquareImage,TestCircleImage2,TestSquareImage2}
+--SpecialMidIconOutput = {Left1Star,Right2Star,Left30Coin,Right10Coin}
+
   --Output of the Roulette for Random Generation
 LeftCurrentOutput = TestCircleImage
+MidCurrentOutput = TestCircleImage
+--MidCurrentOutput = Left1Star
+RightCurrentOutput = TestCircleImage
+
+--Initial UI Text Arrangement. Int makes it so that it only outputs whole numbers.
+StartStarValue1 = int(random(2,5))
+StartCoinValue1 = int(random(20,80))
+StartStarValue2 = int(random(2,5))
+StartCoinValue2 = int(random(20,80))
+StartStarValue3 = int(random(2,5))
+StartCoinValue3 = int(random(20,80))
+StartStarValue4 = int(random(2,5))
+StartCoinValue4 = int(random(20,80))
+
+
+Player1Stars = StartStarValue1
+Player1Coins = StartCoinValue1
+Player2Stars = StartStarValue2
+Player2Coins = StartCoinValue2
+Player3Stars = StartStarValue3
+Player3Coins = StartCoinValue3
+Player4Stars = StartStarValue4
+Player4Coins = StartCoinValue4
+
 end
 
 function draw()
@@ -92,10 +135,10 @@ TestSquare2Y = TestSquare2Y + RouletteSpeed
     TestSquare2Y = -100
   end
 
---Big Icon Image When Keys are Pressed. How do I make this an Array?
+--Big Icon Image When Keys are Pressed.
 image(LeftCurrentOutput,width*.247,LeftIconHeight,75, width*0.1)
-image(TestCircleImage2,width*.447,MidIconHeight,75, width*0.1)
-image(TestSquareImage,width*.647,RightIconHeight,75, width*0.1)
+image(MidCurrentOutput,width*.447,MidIconHeight,75, width*0.1)
+image(RightCurrentOutput,width*.647,RightIconHeight,75, width*0.1)
 
 --Sky Color. I have to form boxes to leave background room for the roulette to work.
 fill(135, 206, 235)
@@ -159,22 +202,97 @@ textAlign(LEFT)
 textSize(20)
 
 --Top Left
-text("# Stars",width*.12,height*.06)
-text("# Coins",width*.12,height*.14)
+text(Player1Stars.." Stars",width*.12,height*.06)
+text(Player1Coins.." Coins",width*.12,height*.14)
 
 --Top Right
-text("# Stars",width*.85,height*.06)
-text("# Coins",width*.85,height*.14)
+text(Player2Stars.." Stars",width*.85,height*.06)
+text(Player2Coins.." Coins",width*.85,height*.14)
 
 --Bottom Left
-text("# Stars",width*.85,height*.9)
-text("# Coins",width*.85,height*.98)
+text(Player3Stars.." Stars",width*.85,height*.9)
+text(Player3Coins.." Coins",width*.85,height*.98)
 
 --Bottom Right
-text("# Stars",width*.12,height*.9)
-text("# Coins",width*.12,height*.98)
+text(Player4Stars.." Stars",width*.12,height*.9)
+text(Player4Coins.." Coins",width*.12,height*.98)
 
 pop()
+
+--Checking What Two Players are in the Roulette. Left Side
+if LeftCurrentOutput == TestCircleImage then
+LeftPlayerStars = Player1Stars
+LeftPlayerCoins = Player1Coins
+else
+if LeftCurrentOutput == TestSquareImage
+then
+LeftPlayerStars = Player2Stars
+LeftPlayerCoins = Player2Coins
+else
+if LeftCurrentOutput == TestCircleImage2
+then
+LeftPlayerStars = Player3Stars
+LeftPlayerCoins = Player3Coins
+else
+if LeftCurrentOutput == TestSquareImage2
+then
+LeftPlayerStars = Player4Stars
+LeftPlayerCoins = Player4Coins
+else
+end
+end
+end
+end
+
+--Checking What Two Players are in the Roulette. Right Side
+if RightCurrentOutput == TestCircleImage then
+RightPlayerStars = Player1Stars
+RightPlayerCoins = Player1Coins
+else
+if RightCurrentOutput == TestSquareImage
+then
+RightPlayerStars = Player2Stars
+RightPlayerCoins = Player2Coins
+else
+if RightCurrentOutput == TestCircleImage2
+then
+RightPlayerStars = Player3Stars
+RightPlayerCoins = Player3Coins
+else
+if RightCurrentOutput == TestSquareImage2
+then
+RightPlayerStars = Player4Stars
+RightPlayerCoins = Player4Coins
+else
+end
+end
+end
+end
+
+
+--When all 3 boxes are done, the UI Updates
+--if LeftBoxCheck == 1 and MidBoxCheck == 1 and RightBoxCheck == 1 then
+--if MidCurrentOutput == Left1Star then
+--LeftPlayerStars = LeftPlayerStars + 1
+--RightPlayerStars = RightPlayerStars - 1 
+--else
+--if MidCurrentOutput == Right2Star then
+--LeftPlayerStars = LeftPlayerStars - 2
+--RightPlayerStars = RightPlayerStars + 2
+--else
+--if MidCurrentOutput == Left30Coin then
+--LeftPlayerCoins = LeftPlayerCoins + 30
+--RightPlayerCoins = RightPlayerCoins - 30
+--else
+--if TestCircleImage2 == Right10Coin then
+--LeftPlayerCoins = LeftPlayerCoins - 10
+--RightPlayerCoins = RightPlayerCoins + 10
+--else
+--end
+
+
+
+
 
   -- Mouse Cursor Cords. Delete once done Coding
   fill(0)
@@ -193,9 +311,17 @@ LeftIconHeight = height*0.33
 LeftBoxIconWidth = 0
 --The Arrow Icon turns transparent.
 LeftArrowOpacity = 0
-
+--Left Box Check Set to 0
+LeftBoxCheck = 1
+--Generate the Output of the Specific Box!
 LeftCurrentOutput = random(IconOutput)
-    else
+
+--Reroll if Right was the same as Left
+if RightBoxCheck == 1 then
+while LeftCurrentOutput == RightCurrentOutput do
+LeftCurrentOutput = random(IconOutput)
+end
+end
 end
 
 if key == "up" then
@@ -206,6 +332,10 @@ MidIconHeight = height*0.33
 MidBoxIconWidth = 0
 
 MidArrowOpacity = 0
+
+MidBoxCheck = 1
+
+MidCurrentOutput = random(IconOutput)
     else
 end
 
@@ -217,6 +347,15 @@ RightIconHeight = height*0.33
 RightBoxIconWidth = 0
 
 RightArrowOpacity = 0
-    else
+
+RightBoxCheck = 1
+
+RightCurrentOutput = random(IconOutput)
+
+if LeftBoxCheck == 1 then
+while RightCurrentOutput == LeftCurrentOutput do
+RightCurrentOutput = random(IconOutput)
+end
+end
 end
 end

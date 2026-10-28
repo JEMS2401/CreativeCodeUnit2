@@ -32,6 +32,13 @@ LeftBoxCheck = 0
 MidBoxCheck = 0
 RightBoxCheck = 0
 
+--Left and Right Winners
+LeftPlayerStars = 0
+LeftPlayerCoins = 0
+
+RightPlayerStars = 0
+RightPlayerCoins = 0
+
 function setup()
   size(700, 500)
   windowTitle("Use the Left, Up, and Right Arrows")
@@ -57,7 +64,29 @@ IconOutput = {TestCircleImage,TestSquareImage,TestCircleImage2,TestSquareImage2}
   --Output of the Roulette for Random Generation
 LeftCurrentOutput = TestCircleImage
 MidCurrentOutput = TestCircleImage
+--MidCurrentOutput = Left1Star
 RightCurrentOutput = TestCircleImage
+
+--Initial UI Text Arrangement. Int makes it so that it only outputs whole numbers.
+StartStarValue1 = int(random(2,5))
+StartCoinValue1 = int(random(20,80))
+StartStarValue2 = int(random(2,5))
+StartCoinValue2 = int(random(20,80))
+StartStarValue3 = int(random(2,5))
+StartCoinValue3 = int(random(20,80))
+StartStarValue4 = int(random(2,5))
+StartCoinValue4 = int(random(20,80))
+
+
+Player1Stars = StartStarValue1
+Player1Coins = StartCoinValue1
+Player2Stars = StartStarValue2
+Player2Coins = StartCoinValue2
+Player3Stars = StartStarValue3
+Player3Coins = StartCoinValue3
+Player4Stars = StartStarValue4
+Player4Coins = StartCoinValue4
+
 end
 
 function draw()
@@ -173,22 +202,97 @@ textAlign(LEFT)
 textSize(20)
 
 --Top Left
-text("# Stars",width*.12,height*.06)
-text("# Coins",width*.12,height*.14)
+text(Player1Stars.." Stars",width*.12,height*.06)
+text(Player1Coins.." Coins",width*.12,height*.14)
 
 --Top Right
-text("# Stars",width*.85,height*.06)
-text("# Coins",width*.85,height*.14)
+text(Player2Stars.." Stars",width*.85,height*.06)
+text(Player2Coins.." Coins",width*.85,height*.14)
 
 --Bottom Left
-text("# Stars",width*.85,height*.9)
-text("# Coins",width*.85,height*.98)
+text(Player3Stars.." Stars",width*.85,height*.9)
+text(Player3Coins.." Coins",width*.85,height*.98)
 
 --Bottom Right
-text("# Stars",width*.12,height*.9)
-text("# Coins",width*.12,height*.98)
+text(Player4Stars.." Stars",width*.12,height*.9)
+text(Player4Coins.." Coins",width*.12,height*.98)
 
 pop()
+
+--Checking What Two Players are in the Roulette. Left Side
+if LeftCurrentOutput == TestCircleImage then
+LeftPlayerStars = Player1Stars
+LeftPlayerCoins = Player1Coins
+else
+if LeftCurrentOutput == TestSquareImage
+then
+LeftPlayerStars = Player2Stars
+LeftPlayerCoins = Player2Coins
+else
+if LeftCurrentOutput == TestCircleImage2
+then
+LeftPlayerStars = Player3Stars
+LeftPlayerCoins = Player3Coins
+else
+if LeftCurrentOutput == TestSquareImage2
+then
+LeftPlayerStars = Player4Stars
+LeftPlayerCoins = Player4Coins
+else
+end
+end
+end
+end
+
+--Checking What Two Players are in the Roulette. Right Side
+if RightCurrentOutput == TestCircleImage then
+RightPlayerStars = Player1Stars
+RightPlayerCoins = Player1Coins
+else
+if RightCurrentOutput == TestSquareImage
+then
+RightPlayerStars = Player2Stars
+RightPlayerCoins = Player2Coins
+else
+if RightCurrentOutput == TestCircleImage2
+then
+RightPlayerStars = Player3Stars
+RightPlayerCoins = Player3Coins
+else
+if RightCurrentOutput == TestSquareImage2
+then
+RightPlayerStars = Player4Stars
+RightPlayerCoins = Player4Coins
+else
+end
+end
+end
+end
+
+
+--When all 3 boxes are done, the UI Updates
+--if LeftBoxCheck == 1 and MidBoxCheck == 1 and RightBoxCheck == 1 then
+--if MidCurrentOutput == Left1Star then
+--LeftPlayerStars = LeftPlayerStars + 1
+--RightPlayerStars = RightPlayerStars - 1 
+--else
+--if MidCurrentOutput == Right2Star then
+--LeftPlayerStars = LeftPlayerStars - 2
+--RightPlayerStars = RightPlayerStars + 2
+--else
+--if MidCurrentOutput == Left30Coin then
+--LeftPlayerCoins = LeftPlayerCoins + 30
+--RightPlayerCoins = RightPlayerCoins - 30
+--else
+--if TestCircleImage2 == Right10Coin then
+--LeftPlayerCoins = LeftPlayerCoins - 10
+--RightPlayerCoins = RightPlayerCoins + 10
+--else
+--end
+
+
+
+
 
   -- Mouse Cursor Cords. Delete once done Coding
   fill(0)
@@ -213,9 +317,10 @@ LeftBoxCheck = 1
 LeftCurrentOutput = random(IconOutput)
 
 --Reroll if Right was the same as Left
-if RightBoxCheck == 1 and LeftCurrentOutput == RightCurrentOutput then
+if RightBoxCheck == 1 then
+while LeftCurrentOutput == RightCurrentOutput do
 LeftCurrentOutput = random(IconOutput)
-    else
+end
 end
 end
 
@@ -247,9 +352,10 @@ RightBoxCheck = 1
 
 RightCurrentOutput = random(IconOutput)
 
-if LeftBoxCheck == 1 and LeftCurrentOutput == RightCurrentOutput then
+if LeftBoxCheck == 1 then
+while RightCurrentOutput == LeftCurrentOutput do
 RightCurrentOutput = random(IconOutput)
-    else
+end
 end
 end
 end
