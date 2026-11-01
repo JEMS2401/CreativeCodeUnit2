@@ -1,4 +1,3 @@
-
 require("L5")
 
 --Sky Height for Gradient
@@ -39,6 +38,10 @@ LeftPlayerCoins = 0
 RightPlayerStars = 0
 RightPlayerCoins = 0
 
+--Has the UI changed?
+UIUpdate = false
+
+
 function setup()
   size(700, 500)
   windowTitle("Use the Left, Up, and Right Arrows")
@@ -52,40 +55,29 @@ function setup()
   TestCircleImage2 = loadImage('assets/TestCircleImage2.png')
   TestSquareImage2 = loadImage('assets/TestSquareImage2.png')
 
-  --Left1Star = loadImage('assets/TestCircleImage1.png')
-  --Right2Star = loadImage('assets/TestSquareImage1.png')
-  --Left30Coin = loadImage('assets/TestCircleImage2.png')
-  --Right10Coin = loadImage('assets/TestSquareImage2.png')
+  Left1Star = loadImage('assets/Left1StarImage.png')
+  Right2Star = loadImage('assets/Right2StarImage.png')
+  Left30Coins = loadImage('assets/Left10CoinsImage.png')
+  Right10Coins = loadImage('assets/Right30CoinsImage.png')
 
   --Image Array for Random Generation
 IconOutput = {TestCircleImage,TestSquareImage,TestCircleImage2,TestSquareImage2}
---SpecialMidIconOutput = {Left1Star,Right2Star,Left30Coin,Right10Coin}
+SpecialMidIconOutput = {Left1Star,Right2Star,Left30Coins,Right10Coins}
 
   --Output of the Roulette for Random Generation
 LeftCurrentOutput = TestCircleImage
-MidCurrentOutput = TestCircleImage
---MidCurrentOutput = Left1Star
+MidCurrentOutput = Left1Star
 RightCurrentOutput = TestCircleImage
 
 --Initial UI Text Arrangement. Int makes it so that it only outputs whole numbers.
-StartStarValue1 = int(random(2,5))
-StartCoinValue1 = int(random(20,80))
-StartStarValue2 = int(random(2,5))
-StartCoinValue2 = int(random(20,80))
-StartStarValue3 = int(random(2,5))
-StartCoinValue3 = int(random(20,80))
-StartStarValue4 = int(random(2,5))
-StartCoinValue4 = int(random(20,80))
-
-
-Player1Stars = StartStarValue1
-Player1Coins = StartCoinValue1
-Player2Stars = StartStarValue2
-Player2Coins = StartCoinValue2
-Player3Stars = StartStarValue3
-Player3Coins = StartCoinValue3
-Player4Stars = StartStarValue4
-Player4Coins = StartCoinValue4
+Player1Stars = int(random(2,5))
+Player1Coins = int(random(20,80))
+Player2Stars = int(random(2,5))
+Player2Coins = int(random(20,80))
+Player3Stars = int(random(2,5))
+Player3Coins = int(random(20,80))
+Player4Stars = int(random(2,5))
+Player4Coins = int(random(20,80))
 
 end
 
@@ -93,19 +85,19 @@ function draw()
 background(255)
 
 
---Box Roulette Icons Set 1. Left. Will Replace all these with images.
+--Box Roulette Icons Set 1. Left.
 image(TestCircleImage,LeftBoxIconWidth-38,TestCircleY,75, width*0.1)
 image(TestSquareImage,LeftBoxIconWidth-38,TestSquareY,75, width*0.1)
 image(TestCircleImage2,LeftBoxIconWidth-38,TestCircle2Y,75, width*0.1)
 image(TestSquareImage2,LeftBoxIconWidth-38,TestSquare2Y,75, width*0.1)
 
---Box Roulette Icons Set 2. Middle. Will Replace all these with images.
-image(TestCircleImage,MidBoxIconWidth-38,TestCircleY,75, width*0.1)
-image(TestSquareImage,MidBoxIconWidth-38,TestSquareY,75, width*0.1)
-image(TestCircleImage2,MidBoxIconWidth-38,TestCircle2Y,75, width*0.1)
-image(TestSquareImage2,MidBoxIconWidth-38,TestSquare2Y,75, width*0.1)
+--Box Roulette Icons Set 2. Middle.
+image(Left1Star,MidBoxIconWidth-38,TestCircleY,75, width*0.1)
+image(Right2Star,MidBoxIconWidth-38,TestSquareY,75, width*0.1)
+image(Left30Coins,MidBoxIconWidth-38,TestCircle2Y,75, width*0.1)
+image(Right10Coins,MidBoxIconWidth-38,TestSquare2Y,75, width*0.1)
 
---Box Roulette Icons Set 3. Right. Will Replace all these with images.
+--Box Roulette Icons Set 3. Right.
 image(TestCircleImage,RightBoxIconWidth-38,TestCircleY,75, width*0.1)
 image(TestSquareImage,RightBoxIconWidth-38,TestSquareY,75, width*0.1)
 image(TestCircleImage2,RightBoxIconWidth-38,TestCircle2Y,75, width*0.1)
@@ -204,23 +196,29 @@ textSize(20)
 --Top Left
 text(Player1Stars.." Stars",width*.12,height*.06)
 text(Player1Coins.." Coins",width*.12,height*.14)
+image(TestCircleImage,width*.02,height*.04)
+
 
 --Top Right
 text(Player2Stars.." Stars",width*.85,height*.06)
 text(Player2Coins.." Coins",width*.85,height*.14)
+image(TestSquareImage,width*.75,height*.04)
 
 --Bottom Left
-text(Player3Stars.." Stars",width*.85,height*.9)
-text(Player3Coins.." Coins",width*.85,height*.98)
+text(Player3Stars.." Stars",width*.12,height*.9)
+text(Player3Coins.." Coins",width*.12,height*.98)
+image(TestCircleImage2,width*.02,height*.88)
 
 --Bottom Right
-text(Player4Stars.." Stars",width*.12,height*.9)
-text(Player4Coins.." Coins",width*.12,height*.98)
+text(Player4Stars.." Stars",width*.85,height*.9)
+text(Player4Coins.." Coins",width*.85,height*.98)
+image(TestSquareImage2,width*.75,height*.88)
 
 pop()
 
 --Checking What Two Players are in the Roulette. Left Side
-if LeftCurrentOutput == TestCircleImage then
+if LeftCurrentOutput == TestCircleImage
+then
 LeftPlayerStars = Player1Stars
 LeftPlayerCoins = Player1Coins
 else
@@ -269,34 +267,80 @@ end
 end
 end
 
+--When all 3 boxes are done, the UI changes values
+if LeftBoxCheck == 1 and MidBoxCheck == 1 and RightBoxCheck == 1 and UIUpdate == false
+then
+if MidCurrentOutput == Left1Star then
+LeftPlayerStars = LeftPlayerStars + 1
+RightPlayerStars = RightPlayerStars - 1
+UIUpdate = true
+else
+if MidCurrentOutput == Right2Star then
+LeftPlayerStars = LeftPlayerStars - 2
+RightPlayerStars = RightPlayerStars + 2
+UIUpdate = true
+else
+--I drew the images wrong so Left is 10 and Right is 30.
+if MidCurrentOutput == Left30Coins then
+LeftPlayerCoins = LeftPlayerCoins + 10
+RightPlayerCoins = RightPlayerCoins - 10
+UIUpdate = true
+else
+if TestCircleImage2 == Right10Coins then
+LeftPlayerCoins = LeftPlayerCoins - 30
+RightPlayerCoins = RightPlayerCoins + 30
+UIUpdate = true
+else
+end
+end
+end
+end
+end
 
---When all 3 boxes are done, the UI Updates
---if LeftBoxCheck == 1 and MidBoxCheck == 1 and RightBoxCheck == 1 then
---if MidCurrentOutput == Left1Star then
---LeftPlayerStars = LeftPlayerStars + 1
---RightPlayerStars = RightPlayerStars - 1 
---else
---if MidCurrentOutput == Right2Star then
---LeftPlayerStars = LeftPlayerStars - 2
---RightPlayerStars = RightPlayerStars + 2
---else
---if MidCurrentOutput == Left30Coin then
---LeftPlayerCoins = LeftPlayerCoins + 30
---RightPlayerCoins = RightPlayerCoins - 30
---else
---if TestCircleImage2 == Right10Coin then
---LeftPlayerCoins = LeftPlayerCoins - 10
---RightPlayerCoins = RightPlayerCoins + 10
---else
---end
+--Updating the Initial Coin and Star Count Text. Right
+if RightCurrentOutput == TestCircleImage then
+Player1Stars = RightPlayerStars
+Player1Coins = RightPlayerCoins
+else
+if RightCurrentOutput == TestSquareImage then
+Player2Stars = RightPlayerStars
+Player2Coins = RightPlayerCoins
+else
+if RightCurrentOutput == TestCircleImage2 then
+Player3Stars = RightPlayerStars
+Player3Coins = RightPlayerCoins
+else
+if RightCurrentOutput == TestSquareImage2 then
+Player4Stars = RightPlayerStars
+Player4Coins = RightPlayerCoins
+else
+end
+end
+end
 
+--Updating the Initial Coin and Star Count Text. Left
+if LeftCurrentOutput == TestCircleImage then
+Player1Stars = LeftPlayerStars
+Player1Coins = LeftPlayerCoins
+else
+if LeftCurrentOutput == TestSquareImage then
+Player2Stars = LeftPlayerStars
+Player2Coins = LeftPlayerCoins
+else
+if LeftCurrentOutput == TestCircleImage2 then
+Player3Stars = LeftPlayerStars
+Player3Coins = LeftPlayerCoins
+else
+if LeftCurrentOutput == TestSquareImage2 then
+Player4Stars = LeftPlayerStars
+Player4Coins = LeftPlayerCoins
+else
+end
+end
+end
+end
+end
 
-
-
-
-  -- Mouse Cursor Cords. Delete once done Coding
-  fill(0)
-  text("X: "..mouseX.."  Y: "..mouseY, mouseX+5,mouseY+30)
 end
 
 
@@ -335,7 +379,7 @@ MidArrowOpacity = 0
 
 MidBoxCheck = 1
 
-MidCurrentOutput = random(IconOutput)
+MidCurrentOutput = random(SpecialMidIconOutput)
     else
 end
 
