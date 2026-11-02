@@ -268,32 +268,24 @@ end
 end
 
 --When all 3 boxes are done, the UI changes values
-if LeftBoxCheck == 1 and MidBoxCheck == 1 and RightBoxCheck == 1 and UIUpdate == false
-then
+if LeftBoxCheck == 1 and MidBoxCheck == 1 and RightBoxCheck == 1 and UIUpdate == false then
 if MidCurrentOutput == Left1Star then
 LeftPlayerStars = LeftPlayerStars + 1
 RightPlayerStars = RightPlayerStars - 1
 UIUpdate = true
-else
-if MidCurrentOutput == Right2Star then
+elseif MidCurrentOutput == Right2Star then
 LeftPlayerStars = LeftPlayerStars - 2
 RightPlayerStars = RightPlayerStars + 2
 UIUpdate = true
-else
---I drew the images wrong so Left is 10 and Right is 30.
-if MidCurrentOutput == Left30Coins then
+elseif MidCurrentOutput == Left30Coins then
 LeftPlayerCoins = LeftPlayerCoins + 10
 RightPlayerCoins = RightPlayerCoins - 10
 UIUpdate = true
-else
-if TestCircleImage2 == Right10Coins then
+elseif MidCurrentOutput == Right10Coins then
 LeftPlayerCoins = LeftPlayerCoins - 30
 RightPlayerCoins = RightPlayerCoins + 30
 UIUpdate = true
 else
-end
-end
-end
 end
 end
 
@@ -301,44 +293,32 @@ end
 if RightCurrentOutput == TestCircleImage then
 Player1Stars = RightPlayerStars
 Player1Coins = RightPlayerCoins
-else
-if RightCurrentOutput == TestSquareImage then
+elseif RightCurrentOutput == TestSquareImage then
 Player2Stars = RightPlayerStars
 Player2Coins = RightPlayerCoins
-else
-if RightCurrentOutput == TestCircleImage2 then
+elseif RightCurrentOutput == TestCircleImage2 then
 Player3Stars = RightPlayerStars
 Player3Coins = RightPlayerCoins
-else
-if RightCurrentOutput == TestSquareImage2 then
+elseif RightCurrentOutput == TestSquareImage2 then
 Player4Stars = RightPlayerStars
 Player4Coins = RightPlayerCoins
 else
-end
-end
 end
 
 --Updating the Initial Coin and Star Count Text. Left
 if LeftCurrentOutput == TestCircleImage then
 Player1Stars = LeftPlayerStars
 Player1Coins = LeftPlayerCoins
-else
-if LeftCurrentOutput == TestSquareImage then
+elseif LeftCurrentOutput == TestSquareImage then
 Player2Stars = LeftPlayerStars
 Player2Coins = LeftPlayerCoins
-else
-if LeftCurrentOutput == TestCircleImage2 then
+elseif LeftCurrentOutput == TestCircleImage2 then
 Player3Stars = LeftPlayerStars
 Player3Coins = LeftPlayerCoins
-else
-if LeftCurrentOutput == TestSquareImage2 then
+elseif LeftCurrentOutput == TestSquareImage2 then
 Player4Stars = LeftPlayerStars
 Player4Coins = LeftPlayerCoins
 else
-end
-end
-end
-end
 end
 
 end
